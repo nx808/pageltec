@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --color-bg: #000000;
+  --color-surface: #0d0d0d;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.40);
+  --color-faint: rgba(255, 255, 255, 0.20);
+
+  /* Spacing scale (used in JSX via prose/section helpers) */
+  --section-py: clamp(6rem, 10vw, 10rem);
+  /* generous vertical breath */
+  --section-px: clamp(1.5rem, 5vw, 4rem);
+  /* safe horizontal padding  */
+  --container-max: 72rem;
+  /* max-w-5xl ≈ 80rem; tighter = 72rem */
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════════
+   BASE RESET
+══════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+  /* Prevent Spline canvas from adding horizontal scroll */
+  position: relative;
+  min-height: 100svh;
+}
+
+/* ══════════════════════════════════════════════
+   GLOBAL TYPOGRAPHY SYSTEM
+   All widths in `ch` = character-width units,
+   which scale with the current font-size.
+══════════════════════════════════════════════ */
+
+/* Display headlines — tight, impactful */
+h1 {
+  text-align: center;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  /* Cap at readable column, centered */
+  max-width: 56rem;
+  /* ~max-w-4xl */
+  margin-inline: auto;
+}
+
+h2 {
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  max-width: 48rem;
+  /* ~max-w-3xl */
+  margin-inline: auto;
+}
+
+h3 {
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* Body / subline text — always constrained, always centered */
+p {
+  text-align: center;
+  line-height: 1.75;
+  max-width: 44ch;
+  /* optimal reading line ~44–66 chars */
+  margin-inline: auto;
+}
+
+/* Override for utility cases where prose width isn't wanted */
+.no-prose-max {
+  max-width: none;
+}
+
+.prose-wide {
+  max-width: 60ch;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION SYSTEM
+   Apply .section to every <section> tag.
+   Apply .section--hero for full-viewport sections.
+══════════════════════════════════════════════ */
+.section {
+  width: 100%;
+  padding-block: var(--section-py);
+  padding-inline: var(--section-px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  /* Default max content width inside sections */
+  >.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    /* 64px baseline vertical gap between blocks */
+  }
+}
+
+.section--hero {
+  min-height: 100svh;
+  justify-content: center;
+  padding-block: 0;
+  /* Hero manages its own vertical spacing */
+}
+
+/* ══════════════════════════════════════════════
+   EYEBROW / LABEL (small uppercase badge above headings)
+══════════════════════════════════════════════ */
+.eyebrow {
+  font-size: 0.625rem;
+  /* 10px */
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.30);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════
+   CARD SYSTEM
+══════════════════════════════════════════════ */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  /* 20px inner gap */
+  padding: 2.5rem 2.5rem;
+  /* 40px */
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.025);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 3.5rem;
+    /* 56px on desktop */
+    gap: 1.5rem;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   GRADIENT TEXT UTILITY
+══════════════════════════════════════════════ */
+.text-gradient {
+  background: linear-gradient(160deg, #ffffff 20%, #4a4a4a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ══════════════════════════════════════════════
+   DIVIDER LINE (centered vertical line used as section break)
+══════════════════════════════════════════════ */
+.divider-line {
+  width: 1px;
+  height: 5rem;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.12), transparent);
+  margin-inline: auto;
+}
+
+/* ══════════════════════════════════════════════
+   SELECTION & SCROLLBAR
+══════════════════════════════════════════════ */
+::selection {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════ */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 7s ease-in-out infinite;
+}

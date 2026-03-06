@@ -1,0 +1,88 @@
+# Pagel High-End Black & White Website
+
+Build a minimalistic, high-end website for **Lucio Pagel** using Next.js (App Router), Spline 3D, and physics-based animations. Strict monochrome (black & white) aesthetic with premium typography and immersive micro-interactions.
+
+## Proposed Changes
+
+### Project Initialization
+
+#### [NEW] Next.js Project
+- Initialize with `npx -y create-next-app@latest ./` (TypeScript, Tailwind CSS, App Router, `src/` directory)
+- Install additional deps: `framer-motion`, `@splinetool/react-spline`, `@splinetool/runtime`
+
+---
+
+### Tailwind & Global Styles
+
+#### [MODIFY] [tailwind.config.ts](file:///Users/admin/Desktop/Websites/pageltec/tailwind.config.ts)
+- Extend theme with B&W color tokens (`primary: #000`, `surface: #0a0a0a`, `accent: #fff`)
+- Add Inter font via `@next/font/google`
+- Custom animation keyframes for float/pulse effects
+
+#### [MODIFY] [globals.css](file:///Users/admin/Desktop/Websites/pageltec/src/app/globals.css)
+- Reset styles, smooth scrolling, selection colors
+- Custom cursor styles, premium scrollbar
+
+---
+
+### Layout & Page
+
+#### [MODIFY] [layout.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/app/layout.tsx)
+- Root layout with Inter font, dark background, metadata for SEO
+
+#### [MODIFY] [page.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/app/page.tsx)
+- Compose Hero → Services → CTA sections
+
+---
+
+### Components
+
+#### [NEW] [Hero.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/components/Hero.tsx)
+- Full-viewport section with Spline 3D scene as background
+- Animated headline: *"Innovation visualisieren. Exzellenz skalieren."*
+- Subline and mission slogan with staggered reveal
+- Physics-based text animation on scroll (parallax + spring)
+
+#### [NEW] [Services.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/components/Services.tsx)
+- Three service cards: Premium 3D Webdesign, Custom Apps, AI Integration
+- Magnetic hover effect (cards follow cursor within bounds)
+- Reveal-on-scroll with Framer Motion `useInView`
+
+#### [NEW] [CallToAction.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/components/CallToAction.tsx)
+- High-contrast centered section
+- Slogan: *"Digital Precision. Human Vision."*
+- Magnetic CTA button with inverted color scheme on hover
+- Subtle physics spring animation on interaction
+
+#### [NEW] [MagneticButton.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/components/MagneticButton.tsx)
+- Reusable button that magnetically follows cursor on hover
+- Uses `framer-motion` spring physics for smooth attraction/release
+
+#### [NEW] [SplineScene.tsx](file:///Users/admin/Desktop/Websites/pageltec/src/components/SplineScene.tsx)
+- Wrapper for `@splinetool/react-spline` with lazy loading
+- Placeholder Spline URL (user can swap in their own scene)
+
+---
+
+### Animation Strategy ("Anti-Gravity" Effect)
+
+Since "Google Anti-Gravity" is a conceptual framework rather than an installable package, we implement its principles through:
+
+1. **Framer Motion springs** — Natural physics (mass, stiffness, damping) for all transitions
+2. **Magnetic hover** — Elements subtly attract toward cursor position
+3. **Floating animations** — Continuous gentle Y-axis oscillation on key elements
+4. **Parallax scroll** — `useScroll` + `useTransform` for depth during scrolling
+5. **Stagger reveals** — Sequential element animation on viewport entry
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` — Verify the project compiles without errors
+
+### Browser Verification
+- Open `http://localhost:3000` in browser
+- Verify Hero section renders with Spline 3D placeholder and animated headline
+- Verify Services cards have magnetic hover effects
+- Verify CTA button has inverted hover state and magnetic pull
+- Verify smooth scroll behavior and parallax effects
+- Verify responsive layout on mobile viewport
