@@ -2,10 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: 'export',    // WICHTIG: Erzeugt den 'out' Ordner
+  output: 'export',
   images: {
-    unoptimized: true, // Notwendig, da Hostinger Webhosting keine Server-Seite Image-Optimierung hat
+    unoptimized: true,
   },
 };
 
-export default nextConfig;https://github.com/nx808/pageltec/blob/main/next.config.ts
+export default nextConfig;
